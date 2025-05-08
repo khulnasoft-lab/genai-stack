@@ -34,6 +34,12 @@ create_vector_index(neo4j_graph)
 
 
 def load_so_data(tag: str = "neo4j", page: int = 1) -> None:
+    import re
+
+    # Validate the tag to ensure it only contains alphanumeric characters, hyphens, or underscores
+    if not re.match(r"^[a-zA-Z0-9_-]+$", tag):
+        raise ValueError("Invalid tag. Tags can only contain alphanumeric characters, hyphens, or underscores.")
+
     parameters = (
         f"?pagesize=100&page={page}&order=desc&sort=creation&answers=1&tagged={tag}"
         "&site=stackoverflow&filter=!*236eb_eL9rai)MOSNZ-6D3Q6ZKb0buI*IVotWaTb"
